@@ -4,7 +4,7 @@ import requests
 from pymysql import Connection
 
 
-def GetSina(page: int, num: int) -> str:
+def getsina(page: int, num: int) -> str:
     """
     获取新浪基金数据
     `page`: 页数， `num`：每页数据量
@@ -33,7 +33,7 @@ def GetSina(page: int, num: int) -> str:
     return res.text
 
 
-def ListSun(*lists: list) -> list:
+def listsum(*lists: list) -> list:
     """
     多个list列表合并
     """
@@ -43,30 +43,30 @@ def ListSun(*lists: list) -> list:
     return listdata
 
 
-def GetCursor():
+def getconn():
     """
     实例化mysql数据库的对象
     """
-    conn = Connection(
+    connn = Connection(
         host='localhost',  # ip地址
         port=3306,  # 端口，默认3306
         user='root',  # 账号
         password='123456'  # 密码
     )
 
-    return conn
+    return connn
 
 
 # ----------->
 # 获取数据并转换为dict
-sinadict1 = json.loads(GetSina(1, 2)[91:-2])
-sinadict2 = json.loads(GetSina(2, 2)[91:-2])
+sinadict1 = json.loads(getsina(1, 2)[91:-2])
+sinadict2 = json.loads(getsina(2, 2)[91:-2])
 
 print(f"<-- sina基金总数：{sinadict1['total_num']} -->")
 
 print("-" * 100)
 # 合并基金数据
-datalist = ListSun(sinadict1['data'], sinadict1['data'])
+datalist = listsum(sinadict1['data'], sinadict1['data'])
 print(f"<-- 获取的基金总数{len(datalist)} -->")
 
 print("-" * 100)
@@ -77,7 +77,7 @@ with open("D:/PyLearn/datacenter/sina.json", "w", encoding="utf8") as f:
     print("-" * 100)
 
 # 将数据写入到数据库中
-conn = GetCursor()
+conn = getconn()
 cursor = conn.cursor()
 
 for line in datalist:
