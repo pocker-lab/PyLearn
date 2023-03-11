@@ -1,5 +1,5 @@
 # 新浪
-# 获取基金数据
+# 获取基金数据：代码，名称，成立日期，基金经理
 # http://vip.stock.finance.sina.com.cn/fund_center/index.html#jjgmall
 import json
 import sys
