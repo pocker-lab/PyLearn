@@ -1,3 +1,6 @@
+# 新浪
+# 获取基金数据
+# http://vip.stock.finance.sina.com.cn/fund_center/index.html#jjgmall
 import json
 
 import requests
