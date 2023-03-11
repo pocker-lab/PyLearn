@@ -59,27 +59,21 @@ def getconn():
 
 # ----------->
 # 获取数据并转换为dict
-sinadict1 = json.loads(getsina(1, 2)[91:-2])
-sinadict2 = json.loads(getsina(2, 2)[91:-2])
+sinadict1 = json.loads(getsina(1, 9000)[91:-2])
+sinadict2 = json.loads(getsina(2, 9000)[91:-2])
 
-print(f"<-- sina基金总数：{sinadict1['total_num']} -->")
-
-print("-" * 100)
 # 合并基金数据
-datalist = listsum(sinadict1['data'], sinadict1['data'])
-print(f"<-- 获取的基金总数{len(datalist)} -->")
+datalist = listsum(sinadict1['data'], sinadict2['data'])
 
-print("-" * 100)
 # 将基金数据写入到json文件中
 with open("D:/PyLearn/datacenter/sina.json", "w", encoding="utf8") as f:
-    f.write(json.dumps(datalist, ensure_ascii=False))
-    print("<-- 数据已写入 -->")
-    print("-" * 100)
+    f.write(json.dumps(datalist, ensure_ascii=False))  # 110344
+    print("<-- 数据已写入到 sina.json -->")
 
 # 将数据写入到数据库中
-conn = getconn()
-cursor = conn.cursor()
-
+conn = getconn()  # 实例化数据库对象
+cursor = conn.cursor()  # 获取游标对象
+count = 0  # 用于统计for循环影响了多少行数据
 for line in datalist:
     sqlcarry = f"insert into pydb.sina(symbol, name, clrq, jjjl) values ('{line['symbol']}', '{line['name']}', '{line['clrq']}', '{line['jjjl']}')"
     try:
@@ -87,16 +81,24 @@ for line in datalist:
         cursor.execute(sqlcarry)
         # 提交到数据库执行
         conn.commit()
+        count += cursor.rowcount
     except Exception as e:
         # 发生错误时回滚
-        print(f"-> 报错Error：{e}")
         print(f"-> 执行语句：{repr(sqlcarry)}")
+        print(f"-> 报错Error：{e}")
+        print()
         conn.rollback()
         continue
 
+# 执行sql语句，获取数据库中全部行数量
 cursor.execute("select count(*) from pydb.sina")
-print("数据库中现有{}".format(cursor.fetchall()[0][0]))
 
 print("-" * 100)
+print(f"<-- sina基金总数：{sinadict1['total_num']} -->")
+print(f"<-- 获取的基金总数：{len(datalist)} -->")
+print(f"<-- 新增数据 {count} 条-->")
+print(f"<-- 数据库中现有 {cursor.fetchall()[0][0]} 条数据 -->")
+
+cursor.close()  # 关闭游标对象
 conn.close()  # 关闭到数据库的链接
 print("<-- 已关闭数据库链接 -->")
