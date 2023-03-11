@@ -21,3 +21,5 @@ pip config set global.index-url http://pypi.douban.com/simple | pip config set g
 
 [python函数之传递多个参数](https://blog.csdn.net/u011607898/article/details/107585700)
 [在 Python 中合并列表的5种方法](https://cloud.tencent.com/developer/article/1815842)
+[Python入门 类class 基础篇](https://zhuanlan.zhihu.com/p/30024792)
+[vscode 默认添加python项目的源目录路径到执行环境](https://www.cnblogs.com/qinfangzhe/p/15917263.html)

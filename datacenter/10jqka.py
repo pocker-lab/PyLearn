@@ -4,7 +4,7 @@
 
 import json
 
-from pymysql import Connection
+from pyutils import pyutils
 
 # import requests
 
@@ -20,27 +20,8 @@ from pymysql import Connection
 with open("D:/PyLearn/datacenter/10jqka.json", "r", encoding="utf8") as f:
     str = json.loads(f.read())
 
-# for k in str['data']['data']:
-#     print(str['data']['data'][k]['code'], "-->",
-#           str['data']['data'][k]['name'])
-
-
-def getconn():
-    """
-    实例化mysql数据库的对象
-    """
-    connn = Connection(
-        host='localhost',  # ip地址
-        port=3306,  # 端口，默认3306
-        user='root',  # 账号
-        password='123456'  # 密码
-    )
-
-    return connn
-
-
 # 将数据写入到数据库中
-conn = getconn()  # 实例化数据库对象
+conn = pyutils.GetConnMySql()  # 实例化数据库对象
 cursor = conn.cursor()  # 获取游标对象
 count = 0  # 用于统计for循环影响了多少行数据
 
