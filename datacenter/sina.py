@@ -7,11 +7,14 @@ import requests
 
 from pyutils import pyutils
 
+timer = pyutils.Timer()
+timer.start()
 
-def getsina():
-    """
+
+def getsina(num=1000):
+    '''
     获取新浪基金数据
-    """
+    '''
     url = "http://vip.stock.finance.sina.com.cn/fund_center/data/jsonp.php/IO.XSRV2.CallbackList['9o_rfPFvmkgcHnSk']/NetValueReturn_Service.NetValueReturnOpen?"
 
     headers = {
@@ -21,7 +24,7 @@ def getsina():
         'Connection': 'keep-alive'
     }
     datalist = []
-    for page in range(1, 1000):
+    for page in range(1, num):
 
         params = {
             "page": page,
@@ -49,6 +52,9 @@ def getsina():
 
         datalist.extend(resdict["data"])
         print(f"\r正在获取：{page}页，获取到数据：{len(datalist)}条", end="")
+    print()
+    timer.end()
+    print()
 
     return datalist
 
@@ -65,34 +71,13 @@ with open("D:/PyLearn/datacenter/sina.json", "r") as f:
     datalist = json.load(f)
 
 # 将数据写入到数据库中
-
-conn = pyutils.GetConnMySql()  # 实例化数据库对象
-cursor = conn.cursor()  # 获取游标对象
-count = 0  # 用于统计for循环影响了多少行数据
+conn = pyutils.db()  # 实例化数据库对象
 for line in datalist:
-    sqlcarry = f"insert into pydb.sina(symbol, name, clrq, jjjl) values ('{line['symbol']}', '{line['name']}', '{line['clrq']}', '{line['jjjl']}')"
-    try:
-        # 执行sql语句
-        cursor.execute(sqlcarry)
-        # 提交到数据库执行
-        conn.commit()
-        count += cursor.rowcount
-    except Exception as e:
-        # 发生错误时回滚
-        # print(f"-> 执行语句：{repr(sqlcarry
-        # print()
-        conn.rollback()
-        continue
+    sqlcarry = f"insert into pydb.fund(symbol, name, clrq, jjjl) values ('{line['symbol']}', '{line['name']}', '{line['clrq']}', '{line['jjjl']}')"
+    conn.Insert_Order(sqlcarry)
 
-# 执行sql语句，获取数据库中全部行数量
-cursor.execute("select count(*) from pydb.sina")
+tt = conn.Query_Order("select count(*) from pydb.fund")[0][0]
 
-print()
-print("-" * 100)
-print(f"<-- 获取的基金总数：{len(datalist)} -->")
-print(f"<-- 新增数据 {count} 条-->")
-print(f"<-- 数据库中现有 {cursor.fetchall()[0][0]} 条数据 -->")
+print(f"<-- 数据库中现有 {tt} 条数据 -->")
 
-cursor.close()  # 关闭游标对象
 conn.close()  # 关闭到数据库的链接
-print("<-- 已关闭数据库链接 -->")
