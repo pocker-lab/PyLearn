@@ -14,13 +14,13 @@ pip config set global.index-url http://pypi.douban.com/simple | pip config set g
 
 ## sql
 
-[Learning/SQL](Learning/SQL.md)
+[Learning/SQL](Learning/SQL.md)  
 [MySql数据库的列类型（字段类型）](https://blog.csdn.net/xiaotom5/article/details/8140679)
 
 ## python
 
-[python函数之传递多个参数](https://blog.csdn.net/u011607898/article/details/107585700)
-[在 Python 中合并列表的5种方法](https://cloud.tencent.com/developer/article/1815842)
-[Python入门 类class 基础篇](https://zhuanlan.zhihu.com/p/30024792)
-[vscode 默认添加python项目的源目录路径到执行环境](https://www.cnblogs.com/qinfangzhe/p/15917263.html)
-[python的多个字典dict合并一个字典的九种方法](https://blog.csdn.net/RogerFedereYY/article/details/109544917)
+[python函数之传递多个参数](https://blog.csdn.net/u011607898/article/details/107585700)  
+[在 Python 中合并列表的5种方法](https://cloud.tencent.com/developer/article/1815842)  
+[Python入门 类class 基础篇](https://zhuanlan.zhihu.com/p/30024792)  
+[vscode 默认添加python项目的源目录路径到执行环境](https://www.cnblogs.com/qinfangzhe/p/15917263.html)  
+[python的多个字典dict合并一个字典的九种方法](https://blog.csdn.net/RogerFedereYY/article/details/109544917)  
