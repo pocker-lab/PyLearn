@@ -31,6 +31,16 @@ def GetConnMySql():
     return conn
 
 
+def MergeList(*lists: list) -> list:
+    """
+    多个list列表合并
+    """
+    listdata = []
+    for item in lists:
+        listdata.extend(item)
+    return listdata
+
+
 if __name__ == "__main__":
     conn = GetConnMySql()
     conn.close()

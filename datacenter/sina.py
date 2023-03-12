@@ -2,19 +2,15 @@
 # 获取基金数据：代码，名称，成立日期，基金经理
 # http://vip.stock.finance.sina.com.cn/fund_center/index.html#jjgmall
 import json
-import sys
 
 import requests
 
 from pyutils import pyutils
 
-sys.path.append("..")
 
-
-def getsina(page: int, num: int) -> str:
+def getsina():
     """
     获取新浪基金数据
-    `page`: 页数， `num`：每页数据量
     """
     url = "http://vip.stock.finance.sina.com.cn/fund_center/data/jsonp.php/IO.XSRV2.CallbackList['9o_rfPFvmkgcHnSk']/NetValueReturn_Service.NetValueReturnOpen?"
 
@@ -24,47 +20,49 @@ def getsina(page: int, num: int) -> str:
         'Host': 'vip.stock.finance.sina.com.cn',
         'Connection': 'keep-alive'
     }
+    datalist = []
+    for page in range(1, 1000):
 
-    params = {
-        "page": page,
-        "num": num,
-        "sort": "zmjgm",
-        "asc": "0",
-        "ccode": "",
-        "type2": "",
-        "type3": ""
-    }
+        params = {
+            "page": page,
+            "num": "80",
+            "sort": "zmjgm",
+            "asc": "0",
+            "ccode": "",
+            "type2": "",
+            "type3": ""
+        }
+        # 获取GET请求内容
+        res = requests.request(
+            "GET", url,
+            headers=headers,
+            data={},
+            params=params
+        ).text[91:-2]
 
-    res = requests.request("GET", url, headers=headers, data={},
-                           params=params).text
-    if len(res) < 1:
-        raise print("未获取到sina网页内容")
-    return res
+        resdict = json.loads(res)
+
+        if len(res) < 1:
+            raise print("未获取到sina网页内容")
+        elif resdict["data"] == None:
+            break
+
+        datalist.extend(resdict["data"])
+        print(f"\r正在获取：{page}页，获取到数据：{len(datalist)}条", end="")
+
+    return datalist
 
 
-def listsum(*lists: list) -> list:
-    """
-    多个list列表合并
-    """
-    listdata = []
-    for item in lists:
-        listdata.extend(item)
-    return listdata
+# 获取新浪数据
+datalist = getsina()
 
+# 写入到文件中
+with open("D:/PyLearn/datacenter/sina.json", "w") as f:
+    json.dump(datalist, f)
 
-# ----------->
-# 获取数据并转换为dict
-sinadict1 = json.loads(getsina(210, 80)[91:-2])
-sinadict2 = json.loads(getsina(211, 80)[91:-2])
-
-# 合并基金数据
-datalist = listsum(sinadict1['data'], sinadict2['data'])
-print(datalist)
-
-# 将基金数据写入到json文件中
-with open("D:/PyLearn/datacenter/sina.json", "w", encoding="utf8") as f:
-    f.write(json.dumps(datalist, ensure_ascii=False))  # 110344
-    print("<-- 数据已写入到 sina.json -->")
+# 从文件中读取
+with open("D:/PyLearn/datacenter/sina.json", "r") as f:
+    datalist = json.load(f)
 
 # 将数据写入到数据库中
 
@@ -83,15 +81,14 @@ for line in datalist:
         # 发生错误时回滚
         # print(f"-> 执行语句：{repr(sqlcarry
         # print()
-
         conn.rollback()
         continue
 
 # 执行sql语句，获取数据库中全部行数量
 cursor.execute("select count(*) from pydb.sina")
 
+print()
 print("-" * 100)
-print(f"<-- sina基金总数：{sinadict1['total_num']} -->")
 print(f"<-- 获取的基金总数：{len(datalist)} -->")
 print(f"<-- 新增数据 {count} 条-->")
 print(f"<-- 数据库中现有 {cursor.fetchall()[0][0]} 条数据 -->")

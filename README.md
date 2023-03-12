@@ -12,15 +12,16 @@
 pip config set global.index-url http://pypi.douban.com/simple | pip config set global.trusted-host pypi.douban.com | pip config set global.timeout 6000
 ```
 
-## sql
+## sql 参考链接
 
-[Learning/SQL](Learning/SQL.md)  
-[MySql数据库的列类型（字段类型）](https://blog.csdn.net/xiaotom5/article/details/8140679)
+1. [Learning/SQL](Learning/SQL.md)  
+2. [MySql数据库的列类型（字段类型）](https://blog.csdn.net/xiaotom5/article/details/8140679)
 
-## python
+## python 参考链接
 
-[python函数之传递多个参数](https://blog.csdn.net/u011607898/article/details/107585700)  
-[在 Python 中合并列表的5种方法](https://cloud.tencent.com/developer/article/1815842)  
-[Python入门 类class 基础篇](https://zhuanlan.zhihu.com/p/30024792)  
-[vscode 默认添加python项目的源目录路径到执行环境](https://www.cnblogs.com/qinfangzhe/p/15917263.html)  
-[python的多个字典dict合并一个字典的九种方法](https://blog.csdn.net/RogerFedereYY/article/details/109544917)  
+1. [python函数之传递多个参数](https://blog.csdn.net/u011607898/article/details/107585700)  
+2. [在 Python 中合并列表的5种方法](https://cloud.tencent.com/developer/article/1815842)  
+3. [Python入门 类class 基础篇](https://zhuanlan.zhihu.com/p/30024792)  
+4. [vscode 默认添加python项目的源目录路径到执行环境](https://www.cnblogs.com/qinfangzhe/p/15917263.html)  
+5. [python的多个字典dict合并一个字典的九种方法](https://blog.csdn.net/RogerFedereYY/article/details/109544917)  
+6. [终止for循环的方式](https://blog.csdn.net/qq_40203552/article/details/107343692)
