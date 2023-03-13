@@ -13,8 +13,8 @@
 
 ## 20230313 TODO
 
-~~[x] 获取天天基金网基金数据  <http://fund.eastmoney.com/data/>~~  
-[] 获取好买基金数据  
+~~[x] 获取天天基金网基金数据 <http://fund.eastmoney.com/data/>~~  
+~~[x] 获取好买基金数据 <https://www.howbuy.com/fundtool/filter.htm>~~  
 [] 通过天天基金网获取基金的名称，成立日期，基金经理，基金公司  
 
 雪球：<https://xueqiu.com/hq>

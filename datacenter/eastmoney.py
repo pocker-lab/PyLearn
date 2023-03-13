@@ -20,7 +20,7 @@ from pyutils import pyutils
 # FOF     618        fof
 # =12880+2398+7256+2995+1833+240+350+618
 # 28570
-timer = pyutils.timer()
+timer = pyutils.Timer()
 timer.start()
 
 def Get_Func_eastmoeny(*types: str, page=1000, num=50):

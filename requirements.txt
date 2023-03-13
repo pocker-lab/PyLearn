@@ -1,6 +1,11 @@
 requests
 autopep8
 pymysql
+bs4
+lxml
+
+
+
 # cryptography
 # pyOpenSSL
 # certif

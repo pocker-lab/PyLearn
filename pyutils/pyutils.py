@@ -31,7 +31,7 @@ class Timer:
         hours = int(elapsed // 3600)
         minutes = int((elapsed % 3600) // 60)
         seconds = int(elapsed % 60)
-        print(f"\r运行时间: {hours:02d}:{minutes:02d}:{seconds:02d}")
+        print(f"运行时间: {hours:02d}:{minutes:02d}:{seconds:02d}")
 
 
 class db(Connection):
