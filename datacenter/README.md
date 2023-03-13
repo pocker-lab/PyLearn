@@ -18,3 +18,7 @@
 [] 获取天天基金网基金数据  
 [] 获取好买基金数据  
 [] 通过天天基金网获取基金的名称，成立日期，基金经理，基金公司  
+
+雪球：<https://xueqiu.com/hq>
+
+[Robots.txt测试](http://www.wetools.com/robots-tester)
