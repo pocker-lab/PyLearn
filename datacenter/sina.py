@@ -76,8 +76,8 @@ for line in datalist:
     sqlcarry = f"insert into pydb.fund(symbol, name, clrq, jjjl) values ('{line['symbol']}', '{line['name']}', '{line['clrq']}', '{line['jjjl']}')"
     conn.Insert_Order(sqlcarry)
 
-tt = conn.Query_Order("select count(*) from pydb.fund")[0][0]
+# tt = conn.Query_Order("select count(*) from pydb.fund")[0][0]
 
-print(f"<-- 数据库中现有 {tt} 条数据 -->")
+# print(f"<-- 数据库中现有 {tt} 条数据 -->")
 
 conn.close()  # 关闭到数据库的链接

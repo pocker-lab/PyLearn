@@ -12,6 +12,36 @@
 pip config set global.index-url http://pypi.douban.com/simple | pip config set global.trusted-host pypi.douban.com | pip config set global.timeout 6000
 ```
 
+## 更改anaconda清华源
+
+Windows 用户无法直接创建名为 .condarc 的文件，可先执行 conda config --set show_channel_urls yes 生成该文件之后再修改。
+
+1. 创建 .condarc
+
+    ```shell
+    conda config --set show_channel_urls yes
+    ```
+
+2. 修改 C:\Users\Luck\.condarc
+
+    ```shell
+    channels:
+      - defaults
+    show_channel_urls: true
+    default_channels:
+      - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+      - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/r
+      - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/msys2
+    custom_channels:
+      conda-forge: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+      msys2: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+      bioconda: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+      menpo: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+      pytorch: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+      pytorch-lts: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+      simpleitk: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+    ```
+
 ## sql 参考链接
 
 1. [Learning/SQL](Learning/SQL.md)  

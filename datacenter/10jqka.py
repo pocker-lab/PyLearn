@@ -12,8 +12,9 @@ timer = pyutils.Timer()
 timer.start()
 
 
-def Get_10jqka(*type: str):
+def Get_10jqka(*types: str):
     """
+    获取爱基金网基金数据
     根据输入的基金类型来获取不同类型的数据，
     `"all"`: 全部；
     `"gpx"`: 股票型；
@@ -28,7 +29,7 @@ def Get_10jqka(*type: str):
     """
 
     response = {}
-    for line in type:
+    for line in types:
         url = f"http://fund.10jqka.com.cn/data/Net/info/{line}_F009_desc_0_0_1_9999_0_0_0_jsonp_g.html"
         dict1 = json.loads(requests.request(
             "GET", url).text[2:-1])['data']['data']
@@ -36,6 +37,7 @@ def Get_10jqka(*type: str):
         print(f"{line}：\t{len(dict1)}条")
     print(f"共获取到{len(response)}条")
     timer.end()
+    print()
     return response
 
 
@@ -58,8 +60,7 @@ for line in textdict:
     conn.Insert_Order(sqlcarry)
 
 # 执行sql语句，获取数据库中全部行数量
-tt = conn.Query_Order("select count(*) from pydb.fund")[0][0]
-
-print(f"<-- 数据库中现有 {tt} 条数据 -->")
+# tt = conn.Query_Order("select count(*) from pydb.fund")[0][0]
+# print(f"<-- 数据库中现有 {tt} 条数据 -->")
 
 conn.close()  # 关闭到数据库的链接

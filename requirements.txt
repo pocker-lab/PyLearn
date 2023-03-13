@@ -1,4 +1,6 @@
 requests
 autopep8
 pymysql
-cryptography
+# cryptography
+# pyOpenSSL
+# certif
